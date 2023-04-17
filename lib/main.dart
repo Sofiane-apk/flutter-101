@@ -1,23 +1,17 @@
 import 'package:flutter/material.dart';
-import 'loginscreen.dart';
-
+import 'package:flutter_application_1/messangerscreen.dart';
 
 
 void main() {
-  runApp(  MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-
-
   @override
   Widget build(BuildContext context) {
-    
-    return   MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:LoginScreen(),
-      ); 
-   
+      home: MessengerScreen(),
+    );
   }
-    
 }
