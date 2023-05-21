@@ -98,9 +98,9 @@ class _HomeLayoutState extends State<HomeLayout> {
                                         ///////////////---------Form field tASK---------///////////////
 
                                         defaultFormField(
-                                            onTap: () {
-                                              print("task");
-                                            },
+                                            // onTap: () {
+                                            //   print("task");
+                                            // },
                                             controller: titleController,
                                             type: TextInputType.text,
                                             validator: (value) {
@@ -117,17 +117,17 @@ class _HomeLayoutState extends State<HomeLayout> {
 
                                         ///////////////---------Form field time---------///////////////
                                         defaultFormField(
-                                            onTap: () {
-                                              showTimePicker(
-                                                      context: context,
-                                                      initialTime:
-                                                          TimeOfDay.now())
-                                                  .then((value) {
-                                                timeController.text = value!
-                                                    .format(context)
-                                                    .toString();
-                                              });
-                                            },
+                                            // onTap: () {
+                                            //   showTimePicker(
+                                            //           context: context,
+                                            //           initialTime:
+                                            //               TimeOfDay.now())
+                                            //       .then((value) {
+                                            //     timeController.text = value!
+                                            //         .format(context)
+                                            //         .toString();
+                                            //   });
+                                            // },
                                             controller: timeController,
                                             type: TextInputType.datetime,
                                             validator: (value) {
@@ -144,19 +144,19 @@ class _HomeLayoutState extends State<HomeLayout> {
                                         ),
                                         ///////////////---------Form field  date---------///////////////
                                         defaultFormField(
-                                            onTap: () {
-                                              showDatePicker(
-                                                context: context,
-                                                initialDate: DateTime.now(),
-                                                firstDate: DateTime.now(),
-                                                lastDate: DateTime.parse(
-                                                    '2024-05-03'),
-                                              ).then((value) {
-                                                dateController.text =
-                                                    DateFormat.yMMMd()
-                                                        .format(value!);
-                                              });
-                                            },
+                                            // onTap: () {
+                                            //   showDatePicker(
+                                            //     context: context,
+                                            //     initialDate: DateTime.now(),
+                                            //     firstDate: DateTime.now(),
+                                            //     lastDate: DateTime.parse(
+                                            //         '2024-05-03'),
+                                            //   ).then((value) {
+                                            //     dateController.text =
+                                            //         DateFormat.yMMMd()
+                                            //             .format(value!);
+                                            //   });
+                                            // },
                                             controller: dateController,
                                             type: TextInputType.datetime,
                                             validator: (value) {

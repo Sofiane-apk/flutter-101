@@ -50,7 +50,7 @@ class LoginScreen extends StatelessWidget {
 //----------------------------------
 
                   defaultFormField(
-                    onTap: () {  print("task");},
+                    //onTap: () {  print("task");},
                       controller: passwordController,
                       type: TextInputType.visiblePassword,
                       validator: (value) {

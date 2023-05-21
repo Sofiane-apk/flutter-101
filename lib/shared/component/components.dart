@@ -1,4 +1,3 @@
-
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +31,7 @@ Widget defaultFormField({
   required TextInputType? type,
   ValueChanged<String>? onFieldSubmitted,
   FormFieldValidator<String>? validator,
-  required VoidCallback onTap,
+  //required VoidCallback onTap,
   required String label,
   required IconData prefix,
   IconData? suffix,
@@ -41,7 +40,7 @@ Widget defaultFormField({
   return TextFormField(
     controller: controller,
     keyboardType: type,
-    onTap: onTap,
+   // onTap: onTap,
     onFieldSubmitted: onFieldSubmitted,
     validator: validator,
     obscureText: isPassword,
@@ -107,50 +106,47 @@ Widget buildTaskItem(Map model, context) => Dismissible(
       ),
     );
 
-
-
 //////////////----no task yet please add some tasks
- Widget tasksBuilder({required List<Map> tasks})=> ConditionalBuilder(
-            condition: tasks.length > 0,
-            builder: (context) => ListView.separated(
-                itemBuilder: (context, index) =>
-                    buildTaskItem(tasks[index], context),
-                separatorBuilder: (context, index) =>myDivider(), 
-                itemCount: tasks.length),
-            fallback: (context) => Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children:const  [
-                  Icon(
-                    Icons.data_usage,
-                    size: 100,
-                    color: Colors.grey,
-                  ),
-                  Text(
-                    'No Tasks Yet, Please Add Some Tasks',
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey),
-                  ),
-                ],
-              ),
+Widget tasksBuilder({required List<Map> tasks}) => ConditionalBuilder(
+      condition: tasks.length > 0,
+      builder: (context) => ListView.separated(
+          itemBuilder: (context, index) => buildTaskItem(tasks[index], context),
+          separatorBuilder: (context, index) => myDivider(),
+          itemCount: tasks.length),
+      fallback: (context) => Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Icon(
+              Icons.data_usage,
+              size: 100,
+              color: Colors.grey,
             ),
-          );
+            Text(
+              'No Tasks Yet, Please Add Some Tasks',
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey),
+            ),
+          ],
+        ),
+      ),
+    );
 
 /////////////----Divider /////////-
-Widget myDivider()=>Padding(
-                      padding: EdgeInsetsDirectional.only(start: 20.0),
-                      child: Container(
-                        width: double.infinity,
-                        height: 1,
-                        color: Colors.grey[300],
-                      ),
-                    );
+Widget myDivider() => Padding(
+      padding: EdgeInsetsDirectional.only(start: 20.0),
+      child: Container(
+        width: double.infinity,
+        height: 1,
+        color: Colors.grey[300],
+      ),
+    );
 
 //////////////----builArticleIteme /////////--
 
-          Widget builArticleItem(article,context)=> Padding(
+Widget builArticleItem(article, context) => Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
         children: [
@@ -160,8 +156,7 @@ Widget myDivider()=>Padding(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
-                  image: NetworkImage(
-                      '${article['urlToImage']}'),
+                  image: NetworkImage('${article['urlToImage']}'),
                   fit: BoxFit.cover,
                 )),
           ),
@@ -176,13 +171,12 @@ Widget myDivider()=>Padding(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Expanded(
-                    child: Text(
-                         '${article['title']}',
+                    child: Text('${article['title']}',
                         maxLines: 4,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.bodyText1),
                   ),
-                  Text( '${article['publishedAt']}',
+                  Text('${article['publishedAt']}',
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 18,
@@ -194,16 +188,22 @@ Widget myDivider()=>Padding(
           ),
         ],
       ),
-    ) ;
+    );
 
-
-    ///////-----ArticleBuilder ------------
-     Widget articleBuilder(list,context) => ConditionalBuilder(
-            condition: list.length > 0,
-            builder: (context) => ListView.separated(
-                physics: BouncingScrollPhysics(),
-                itemBuilder: (context, index) => builArticleItem(list[index],context),
-                separatorBuilder: (context, index) => myDivider(),
-                itemCount: list.length),
-            fallback: (context) => Center(child: CircularProgressIndicator()),
-          );
+///////-----ArticleBuilder ------------
+Widget articleBuilder(list, context) => ConditionalBuilder(
+      condition: list.length > 0,
+      builder: (context) => ListView.separated(
+          physics: BouncingScrollPhysics(),
+          itemBuilder: (context, index) =>
+              builArticleItem(list[index], context),
+          separatorBuilder: (context, index) => myDivider(),
+          itemCount: list.length),
+      fallback: (context) => Center(child: CircularProgressIndicator()),
+    );
+///////-----Navigator widget --------
+void navigateTo(context, widget) => Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => widget,
+    ));
