@@ -49,11 +49,12 @@ class LoginScreen extends StatelessWidget {
 
 //----------------------------------
 
-                  defaultFormeField(
+                  defaultFormField(
+                    onTap: () {  print("task");},
                       controller: passwordController,
                       type: TextInputType.visiblePassword,
-                      validate: (value) {
-                        if (value.isEmpty) {
+                      validator: (value) {
+                        if (value!.isEmpty) {
                           return 'Please enter your email';
                         }
                         return null;
@@ -62,14 +63,14 @@ class LoginScreen extends StatelessWidget {
                       prefix: Icons.email,
                       suffix: Icons.remove_red_eye_outlined,
                       isPassword: true,
-                        onSubmit: () {
-                        print(emailController.text);
-                        print(passwordController.text);
-                      },
-                      onChange: () {
-                        print(emailController.text);
-                        print(passwordController.text);
-                      },
+                      //   onSubmit: () {
+                      //   print(emailController.text);
+                      //   print(passwordController.text);
+                      // },
+                      // onChange: () {
+                      //   print(emailController.text);
+                      //   print(passwordController.text);
+                      // },
                               ),
                   
 
