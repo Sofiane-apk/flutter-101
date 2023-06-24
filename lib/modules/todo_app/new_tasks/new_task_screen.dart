@@ -6,9 +6,9 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_application_1/shared/component/components.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../shared/component/constants.dart';
-import '../../shared/cubit/cubit.dart';
-import '../../shared/cubit/states.dart';
+import '../../../shared/cubit/cubit.dart';
+import '../../../shared/cubit/states.dart';
+
 
 class NewTasksScreen extends StatelessWidget {
   // const NewTasksScreen({Key? key}) : super(key: key);

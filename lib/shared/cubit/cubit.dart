@@ -7,9 +7,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../layout/news_app/cubit/states.dart';
-import '../../modules/archived_tasks/archived_task_screen.dart';
-import '../../modules/done_tasks/done_task_screen.dart';
-import '../../modules/new_tasks/new_task_screen.dart';
+
+import '../../modules/todo_app/archived_tasks/archived_task_screen.dart';
+import '../../modules/todo_app/done_tasks/done_task_screen.dart';
+import '../../modules/todo_app/new_tasks/new_task_screen.dart';
 import '../Network/Locale/cach_helper.dart';
 
 class AppCubit extends Cubit<AppStates> {

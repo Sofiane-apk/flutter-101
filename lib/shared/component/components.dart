@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 
+import '../../modules/news_app/web_view/web_view_screen.dart';
 import '../cubit/cubit.dart';
 
 Widget defaultButton({
@@ -31,7 +32,7 @@ Widget defaultFormField({
   required TextInputType? type,
   ValueChanged<String>? onFieldSubmitted,
   FormFieldValidator<String>? validator,
-  //required VoidCallback onTap,
+  required Function onTap,
   required String label,
   required IconData prefix,
   IconData? suffix,
@@ -40,7 +41,7 @@ Widget defaultFormField({
   return TextFormField(
     controller: controller,
     keyboardType: type,
-   // onTap: onTap,
+    // onTap: onTap,
     onFieldSubmitted: onFieldSubmitted,
     validator: validator,
     obscureText: isPassword,
@@ -146,52 +147,57 @@ Widget myDivider() => Padding(
 
 //////////////----builArticleIteme /////////--
 
-Widget builArticleItem(article, context) => Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          Container(
-            width: 120,
-            height: 120,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                  image: NetworkImage('${article['urlToImage']}'),
-                  fit: BoxFit.cover,
-                )),
-          ),
-          SizedBox(
-            width: 20,
-          ),
-          Expanded(
-            child: Container(
+Widget builArticleItem(article, context) => InkWell(
+      onTap: () {
+        navigateTo(context, WebViewScreen(article['url']));
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            Container(
+              width: 120,
               height: 120,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Text('${article['title']}',
-                        maxLines: 4,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.bodyText1),
-                  ),
-                  Text('${article['publishedAt']}',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w300,
-                      )),
-                ],
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  image: DecorationImage(
+                    image: NetworkImage('${article['urlToImage']}'),
+                    fit: BoxFit.cover,
+                  )),
+            ),
+            SizedBox(
+              width: 20,
+            ),
+            Expanded(
+              child: Container(
+                height: 120,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Text('${article['title']}',
+                          maxLines: 4,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.bodyText1),
+                    ),
+                    Text('${article['publishedAt']}',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w300,
+                        )),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
 
 ///////-----ArticleBuilder ------------
-Widget articleBuilder(list, context) => ConditionalBuilder(
+Widget articleBuilder(list, context, {isSearch = false}) => ConditionalBuilder(
       condition: list.length > 0,
       builder: (context) => ListView.separated(
           physics: BouncingScrollPhysics(),
@@ -199,11 +205,36 @@ Widget articleBuilder(list, context) => ConditionalBuilder(
               builArticleItem(list[index], context),
           separatorBuilder: (context, index) => myDivider(),
           itemCount: list.length),
-      fallback: (context) => Center(child: CircularProgressIndicator()),
+      fallback: (context) =>
+          isSearch ? Container() : Center(child: CircularProgressIndicator()),
     );
+
 ///////-----Navigator widget --------
 void navigateTo(context, widget) => Navigator.push(
     context,
     MaterialPageRoute(
       builder: (context) => widget,
     ));
+///////-----Navigator widget --------
+void navigateToFinish(context, widget) => Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (context) => widget,
+      ),
+      (route) {
+        return false;
+      },
+    );
+
+//////////---text button //////
+Widget defaultTextButton({
+  required Function() onPressed,
+  required String text,
+}) =>
+    TextButton(
+      onPressed: onPressed,
+      child: Text(text.toUpperCase()),
+      
+    );
+
+
